@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TIMO CLUB</title>
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: linear-gradient(180deg, #1f1c2c, #4b4a7c);
+    max-width: 430px;
+    margin: auto;
+    padding: 0;
+    color: #222;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .hidden { display: none; }
+  .app-logo {
+    font-weight: 900;
+    font-size: 36px;
+    text-align: center;
+    color: #8a6cf5;
+    text-shadow: 1px 1px 4px rgba(138, 108, 245, 0.7);
+    margin-bottom: 20px;
+    user-select: none;
+  }
+  h1, h2 { text-align: center; color: #fff; }
+  .section {
+    background: #fff;
+    border-radius: 18px;
+    padding: 16px;
+    margin: 16px 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  .btn, .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 14px;
+    margin-bottom: 12px;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+    transition: 0.2s;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+  }
+  .btn:hover, .card:hover { transform: scale(1.02); }
+  .badge { background: #6a5acd; color: #fff; padding: 4px 10px; border-radius: 12px; font-size: 12px; }
+  .cashback { background: #2ecc71; }
+  .pay { display: flex; align-items: center; gap: 10px; border: 1px solid #ccc; border-radius: 14px; padding: 12px; margin-bottom: 10px; cursor: pointer; background: #fff; transition: background-color 0.3s ease; }
+  .pay img { width: 36px; height: 22px; object-fit: contain; }
+  .pay span { font-size: 16px; flex-grow: 1; }
+  .pay.disabled { opacity: 0.5; cursor: not-allowed; }
+  .pay.active { background: #e8f9f0; border-color: #2ecc71; }
+  .bill { background: #f7f7f7; border-radius: 14px; padding: 14px; margin-bottom: 14px; }
+  .bill div { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 15px; }
+  .number-copy { display: flex; align-items: center; gap: 6px; }
+  .copy-btn { padding: 2px 6px; background:#6a5acd; color:#fff; border:none; border-radius:6px; cursor:pointer; font-size:12px; }
+  input { width: 85%; padding: 11px; margin: 6px auto; display: block; border-radius: 10px; border: 1px solid #ccc; }
+  .upload { background: #f0f0f0; padding: 11px; border-radius: 10px; text-align: center; cursor: pointer; margin: 8px 0; }
+  .upload input { display: none; }
+  .policy { font-size: 13px; color: #555; line-height: 1.8; background: #fafafa; padding: 12px; border-radius: 12px; margin-top: 12px; }
+  .plan-description { text-align: center; margin-bottom: 14px; font-size: 14px; color: #000; }
+  footer { background: #000; color: #fff; font-size: 12px; text-align: center; padding: 10px 5px; margin-top: auto; }
+  footer a { color: #fff; text-decoration: underline; margin: 0 5px; }
+</style>
+</head>
+<body>
+
+<!-- الصفحة 1: تحديد الجنس -->
+<div id="genderPage" class="section" style="background: linear-gradient(180deg, #1f1c2c, #4b4a7c); color: #fff;">
+  <div class="app-logo" aria-label="شعار تطبيق TIMO CLUB">TIMO CLUB</div>
+  <h2>حدد الجنس</h2>
+  <div class="btn" style="color:#000;" onclick="setGender('ذكر')">ذكر</div>
+  <div class="btn" style="color:#000;" onclick="setGender('أنثى')">أنثى</div>
+</div>
+
+<!-- الصفحة 2: اختيار الاشتراك -->
+<div id="plansPage" class="hidden section">
+  <div class="app-logo" aria-label="شعار تطبيق TIMO CLUB">TIMO CLUB</div>
+  <p class="plan-description">مكالمات فيديو • مكالمات صوتية • رسائل • طوال مدة الاشتراك</p>
+
+  <div class="card" onclick="choosePlan('شهر', 813)"><span class="badge">خصم 6%</span><h3>شهر</h3><div class="price-old">865 جنيه</div><div class="price-new">813 جنيه</div></div>
+  <div class="card" onclick="choosePlan('شهرين', 1363)"><span class="badge">خصم 6%</span><h3>شهرين</h3><div class="price-old">1450 جنيه</div><div class="price-new">1363 جنيه</div></div>
+  <div class="card" onclick="choosePlan('3 شهور', 1927)"><span class="badge">خصم 6%</span><h3>3 شهور</h3><div class="price-old">2050 جنيه</div><div class="price-new">1927 جنيه</div></div>
+  <div class="card" onclick="choosePlan('5 شهور', 2350)"><span class="badge">خصم 6%</span><h3>5 شهور</h3><div class="price-old">2500 جنيه</div><div class="price-new">2350 جنيه</div></div>
+  <div class="card" onclick="choosePlan('6 شهور', 3650)"><span class="badge cashback">استرداد 50%</span><h3>6 شهور</h3><div class="price-new">3650 جنيه</div><small>استرداد 50% بعد التفعيل</small></div>
+  <div class="card" onclick="choosePlan('12 شهر', 6895)"><span class="badge cashback">استرداد 50%</span><h3>12 شهر</h3><div class="price-new">6895 جنيه</div><small>استرداد 50% بعد التفعيل</small></div>
+</div>
+
+<!-- الصفحة 3: اختيار طريقة الدفع -->
+<div id="paymentPage" class="hidden section">
+  <h2>طرق الدفع</h2>
+
+  <div class="pay disabled"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg" alt="Visa Logo" /><span>Visa / Mastercard</span></div>
+  <div class="pay disabled"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal Logo" /><span>PayPal</span></div>
+  <div class="pay active" onclick="selectPay('Vodafone Cash', '01034381180')"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Vodafone_Logo.svg" alt="Vodafone Logo" /><span>Vodafone Cash</span></div>
+  <div class="pay active" onclick="selectPay('Etisalat Cash', '01158753653')"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Etisalat_Logo.svg" alt="Etisalat Logo" /><span>Etisalat Cash</span></div>
+  <div class="pay disabled"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Apple_Pay_logo.svg" alt="Apple Pay Logo" /><span>Apple Pay</span></div>
+  <div class="pay disabled"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Google_Pay_Logo.svg" alt="Google Pay Logo" /><span>Google Pay</span></div>
+</div>
+
+<!-- الصفحة 4: تأكيد الدفع -->
+<div id="confirmPage" class="hidden section">
+  <h2>فاتورة الدفع</h2>
+  <div class="bill">
+    <div><strong>الباقة:</strong> <span id="bPlan"></span></div>
+    <div><strong>طريقة الدفع:</strong> <span id="bMethod"></span></div>
+    <div><strong>رقم التحويل:</strong> 
+        <span class="number-copy">
+            <span id="bNumber"></span>
+            <button class="copy-btn" onclick="copyNumber()">نسخ</button>
+        </span>
+    </div>
+    <div><strong>السعر النهائي:</strong> <span id="bPrice"></span></div>
+  </div>
+
+  <input id="accountId" placeholder="ID الحساب داخل TIMO" />
+  <div class="upload" onclick="document.getElementById('screenshot').click()">📤 اضغط لرفع اسكرين التحويل</div>
+  <input id="screenshot" type="file" accept="image/*" />
+  <div class="btn" onclick="sendWhatsApp()">إرسال الطلب على واتساب</div>
+
+  <div class="policy">
+    <h3>سياسات الدفع والاسترداد</h3>
+    <p>- يرجى التأكد من صحة بيانات التحويل قبل الإرسال.<br>- لا يتم استرداد المبالغ بعد إتمام عملية الدفع.<br>- الالتزام بشروط الاستخدام وعدم مشاركة الحساب.<br>- في حال وجود أي مشكلة، تواصل معنا عبر واتساب.</p>
+  </div>
+</div>
+
+<!-- صفحات Privacy + Terms مخفية -->
+<div id="privacyPage" class="hidden section">
+  <h2>Privacy Policy</h2>
+  <p>This website does not collect sensitive personal data. No passwords, credit card data, or private information are stored or shared. All information entered is used solely for service purposes.</p>
+  <div class="btn" onclick="show('genderPage')">Back to Home</div>
+</div>
+
+<div id="termsPage" class="hidden section">
+  <h2>Terms of Service</h2>
+  <p>By using TIMO CLUB, you agree to our terms. Content is for personal use only. Sharing accounts or violating rules may result in termination of service. Payments are non-refundable once completed.</p>
+  <div class="btn" onclick="show('genderPage')">Back to Home</div>
+</div>
+
+<footer>
+  © 2026 TIMO CLUB | 
+  <a href="#" onclick="show('termsPage')">Terms of Service</a> | 
+  <a href="#" onclick="show('privacyPage')">Privacy Policy</a>
+</footer>
+
+<script>
+const phone = "201034381180";
+
+function setGender(g) {
+  localStorage.setItem("gender", g);
+  show("plansPage");
+}
+function choosePlan(plan, price) {
+  localStorage.setItem("plan", plan);
+  localStorage.setItem("price", price);
+  show("paymentPage");
+}
+function selectPay(method, number) {
+  localStorage.setItem("method", method);
+  localStorage.setItem("number", number);
+  document.getElementById("bPlan").innerText = localStorage.getItem("plan");
+  document.getElementById("bMethod").innerText = method;
+  document.getElementById("bNumber").innerText = number;
+  document.getElementById("bPrice").innerText = localStorage.getItem("price") + " جنيه";
+  show("confirmPage");
+}
+
+function copyNumber() {
+  const number = localStorage.getItem("number");
+  navigator.clipboard.writeText(number).then(() => {
+    alert("تم نسخ الرقم: " + number);
+  });
+}
+
+function show(id) {
+  document.getElementById("genderPage").classList.add("hidden");
+  document.getElementById("plansPage").classList.add("hidden");
+  document.getElementById("paymentPage").classList.add("hidden");
+  document.getElementById("confirmPage").classList.add("hidden");
+  document.getElementById("privacyPage").classList.add("hidden");
+  document.getElementById("termsPage").classList.add("hidden");
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function sendWhatsApp() {
+  const id = document.getElementById("accountId").value.trim();
+  const screenshot = document.getElementById("screenshot");
+  if (!id) { alert("يرجى إدخال ID الحساب"); return; }
+  if (!screenshot.files.length) { alert("يرجى رفع اسكرين التحويل"); return; }
+  const msg = `طلب اشتراك TIMO CLUB
+الجنس: ${localStorage.getItem("gender")}
+الباقة: ${localStorage.getItem("plan")}
+السعر: ${localStorage.getItem("price")} جنيه
+طريقة الدفع: ${localStorage.getItem("method")}
+رقم التحويل: ${localStorage.getItem("number")}
+ID الحساب: ${id}`;
+  alert("بعد فتح واتساب، أرفق اسكرين التحويل ثم أرسل الرسالة");
+  location.href = `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+}
+</script>
+
+</body>
+</html>
